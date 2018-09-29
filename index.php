@@ -32,5 +32,20 @@ function f2(){
 
  f2();
 
+ /*
+1.3. Текст произвольной длины, если текст большей, чем 50 символов 
+длины, то обрезать его до 47 символов и в конце поставить "..." Троеточие не должно идти после пробела 
+ */
+
+function f3(){
+	$text = file_get_contents('text3.txt');
+	$count_char = strlen($text);
+	if ($count_char > 47) {
+		$new_text = substr($text, 0, 47);
+	}
+	echo rtrim($new_text) . "...";
+}
+
+f3();
 
 ?>
