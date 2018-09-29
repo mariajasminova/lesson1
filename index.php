@@ -48,4 +48,13 @@ function f3(){
 
 f3();
 
+function f4(){
+	$text = file_get_contents('text3.txt');
+	$count_char = strlen($text);
+	if ($count_char > 47) {
+		echo substr($text, 0, strpos($text, ' ', 47)) . "...";}
+}		
+
+f4();
+
 ?>
