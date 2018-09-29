@@ -57,4 +57,15 @@ function f4(){
 
 f4();
 
+/*
+2.1. Найти произведение всех чисел через reduce
+*/
+function f5($a, $b){
+ $a *= $b;
+ return $a;
+}
+
+$arr = [1, 2, 3, 4, 5];
+var_dump(array_reduce($arr, "f5", 1));
+
 ?>
