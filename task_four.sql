@@ -32,7 +32,6 @@ CREATE TABLE `films` (
   `id_films` int(11) NOT NULL,
   `title` varchar(20) NOT NULL,
   `release_date` varchar(20) NOT NULL,
-  `genre_id` int(11) NOT NULL,
   `producer_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
