@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Сен 30 2018 г., 18:59
+-- Время создания: Сен 30 2018 г., 23:28
 -- Версия сервера: 5.6.37
 -- Версия PHP: 7.1.7
 
@@ -19,7 +19,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- База данных: `task_four`
+-- База данных: `fourth_task`
 --
 
 -- --------------------------------------------------------
@@ -30,10 +30,20 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `films` (
   `id_films` int(11) NOT NULL,
-  `title` varchar(20) NOT NULL,
-  `release_date` varchar(20) NOT NULL,
-  `producer_id` int(11) NOT NULL
+  `title` char(20) DEFAULT NULL,
+  `release_date` int(11) DEFAULT NULL,
+  `producer_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Дамп данных таблицы `films`
+--
+
+INSERT INTO `films` (`id_films`, `title`, `release_date`, `producer_id`) VALUES
+(1, 'Rememory', 2017, 1),
+(2, 'Interstellar', 2014, 2),
+(3, 'Blade runner 2049', 2017, 3),
+(5, 'The intouchables', 2011, 4);
 
 -- --------------------------------------------------------
 
@@ -42,9 +52,19 @@ CREATE TABLE `films` (
 --
 
 CREATE TABLE `film_genre` (
-  `film_id` int(11) NOT NULL,
-  `genre_id` int(11) NOT NULL
+  `film_id` int(11) NOT NULL DEFAULT '0',
+  `genre_id` int(11) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Дамп данных таблицы `film_genre`
+--
+
+INSERT INTO `film_genre` (`film_id`, `genre_id`) VALUES
+(1, 1),
+(2, 1),
+(3, 1),
+(5, 2);
 
 -- --------------------------------------------------------
 
@@ -54,8 +74,17 @@ CREATE TABLE `film_genre` (
 
 CREATE TABLE `genre` (
   `id_genre` int(11) NOT NULL,
-  `title` int(11) NOT NULL
+  `gtitle` char(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Дамп данных таблицы `genre`
+--
+
+INSERT INTO `genre` (`id_genre`, `gtitle`) VALUES
+(1, 'Science fiction'),
+(2, 'Biography'),
+(3, 'Comedy');
 
 -- --------------------------------------------------------
 
@@ -65,9 +94,20 @@ CREATE TABLE `genre` (
 
 CREATE TABLE `producer` (
   `id_producer` int(11) NOT NULL,
-  `first_name` varchar(15) NOT NULL,
-  `last_name` varchar(20) NOT NULL
+  `first_name` char(20) DEFAULT NULL,
+  `last_name` char(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Дамп данных таблицы `producer`
+--
+
+INSERT INTO `producer` (`id_producer`, `first_name`, `last_name`) VALUES
+(1, 'Mark', 'Palansky'),
+(2, 'Christopher', 'Nolan'),
+(3, 'Denis', 'Villeneuve'),
+(4, 'Olivier', 'Nakache'),
+(5, 'Amanda', 'Sthers');
 
 --
 -- Индексы сохранённых таблиц
@@ -107,12 +147,17 @@ ALTER TABLE `producer`
 -- AUTO_INCREMENT для таблицы `films`
 --
 ALTER TABLE `films`
-  MODIFY `id_films` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_films` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+--
+-- AUTO_INCREMENT для таблицы `genre`
+--
+ALTER TABLE `genre`
+  MODIFY `id_genre` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT для таблицы `producer`
 --
 ALTER TABLE `producer`
-  MODIFY `id_producer` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_producer` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- Ограничения внешнего ключа сохраненных таблиц
 --
@@ -121,14 +166,14 @@ ALTER TABLE `producer`
 -- Ограничения внешнего ключа таблицы `films`
 --
 ALTER TABLE `films`
-  ADD CONSTRAINT `films_ibfk_2` FOREIGN KEY (`producer_id`) REFERENCES `producer` (`id_producer`);
+  ADD CONSTRAINT `films_ibfk_2` FOREIGN KEY (`producer_id`) REFERENCES `producer` (`id_producer`) ON DELETE CASCADE ON UPDATE SET NULL;
 
 --
 -- Ограничения внешнего ключа таблицы `film_genre`
 --
 ALTER TABLE `film_genre`
-  ADD CONSTRAINT `film_genre_ibfk_1` FOREIGN KEY (`film_id`) REFERENCES `films` (`id_films`),
-  ADD CONSTRAINT `film_genre_ibfk_2` FOREIGN KEY (`genre_id`) REFERENCES `genre` (`id_genre`);
+  ADD CONSTRAINT `film_genre_ibfk_1` FOREIGN KEY (`film_id`) REFERENCES `films` (`id_films`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `film_genre_ibfk_2` FOREIGN KEY (`genre_id`) REFERENCES `genre` (`id_genre`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
