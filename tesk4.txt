@@ -1,0 +1,14 @@
+ALTER TABLE films ADD budget INT(11) NULL;
+ALTER TABLE films DROP budget;
+UPDATE `films` SET `release_date`=2013 WHERE `title`='Madame';
+DELETE FROM `films` WHERE `title`='Madame';
+SELECT * FROM `films` WHERE `release_date`>2014
+Select:
+SELECT * FROM `films` WHERE `title`LIKE '%a%';
+SELECT * FROM `films` WHERE `title` LIKE 'A%';
+SELECT * FROM `films` WHERE `title` LIKE '%a%' OR `release_date`>2014
+SELECT * FROM `films` WHERE `title` LIKE '%a%' AND `release_date`>2014;
+SELECT `title`, `first_name`, `last_name` FROM `producer` INNER JOIN `films` WHERE `producer`.`id_producer`=`films`.`id_films`;
+SELECT * FROM `films` INNER JOIN `producer` WHERE  `producer`.`id_producer`=`films`.`id_films` AND `producer`.`last_name` LIKE '%a%';
+SELECT `title`, `gtitle` FROM `films` INNER JOIN `film_genre` WHERE `films`.`id_films`=`film_genre`.`film_id` AND `film_genre`.`genre_id`=(SELECT `id_genre`FROM `genre` INNER JOIN `film_genre` WHERE `genre`.`id_genre`=`film_genre`.`genre_id`);
+Не работает
